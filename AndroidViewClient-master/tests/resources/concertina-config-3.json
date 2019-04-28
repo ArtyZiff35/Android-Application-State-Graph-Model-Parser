@@ -1,0 +1,49 @@
+{
+  "limits": {
+    "iterations": 1
+  },
+  "probabilities": {
+    "systemKeys": 0,
+    "views": 1
+  },
+  "systemKeys": {
+    "keys": [
+      "ENTER",
+      "BACK",
+      "HOME",
+      "MENU"
+    ],
+    "probabilities": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "views": {
+    "selector": ["classes", "contentDescriptions"],
+    "probabilities": [0, 1],
+    "classes": {
+      "regexs": [
+        "android.widget.EditText",
+        "android.widget.Scrollable",
+        "android.widget.ImageView",
+        ".*"
+      ],
+      "probabilities": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "contentDescriptions": {
+      "regexs": [
+        "Ask Alexa"
+      ],
+      "probabilities": [
+        1.0
+      ]
+    }
+  }
+}
