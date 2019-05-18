@@ -144,7 +144,7 @@ device, serialno = ViewClient.connectToDeviceOrExit(**kwargs1)
 vc = ViewClient(device, serialno, **kwargs2)
 if vc.useUiAutomator:
     print "ViewClient: using UiAutomator backend"
-    device.dumpsys()
+    #device.dumpsys()
 
 
 ################################################################
