@@ -61,7 +61,7 @@ if vc.useUiAutomator:
     #device.dumpsys()
 
 
-# First of all, check if the stored file
+# First of all, check if the stored file already exists
 labeledList = []
 exists = os.path.isfile(storePath)
 if exists:
@@ -163,8 +163,8 @@ smallerScreenshot = cv2.resize(croppedScreenshot, (0,0), fx=0.45, fy=0.45)
 print "Screenshot resized to " + str(smallerScreenshot.shape)
 # Setting that screenshot to the object
 activityObject.setScreenshot(smallerScreenshot)
-#cv2.imshow('image', activityObject.screenshot)
-#cv2.waitKey()
+# cv2.imshow('image', activityObject.screenshot)
+# cv2.waitKey()
 
 
 # Requesting to the user to input the type of the recorded activity
