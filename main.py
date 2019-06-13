@@ -9,8 +9,6 @@ from com.dtmilano.android.common import debugArgsToDict
 from stateNode import stateNode
 import graphPlotter as gp
 
-#TODO: Each line of the txt file corresponds to an entry of the dictionary vc.viewsById, which has as keys the UniqueIDs and as values the dictionary of attributes (e.g. vc.viewsById['id/no_id/14'])
-
 
 ################################
 ########## FUNCTIONS ###########
@@ -144,7 +142,6 @@ device, serialno = ViewClient.connectToDeviceOrExit(**kwargs1)
 vc = ViewClient(device, serialno, **kwargs2)
 if vc.useUiAutomator:
     print "ViewClient: using UiAutomator backend"
-    #device.dumpsys()
 
 
 ################################################################
@@ -184,7 +181,7 @@ while len(statesToExploreQueue) != 0:
     # Trying to reduce the number of states in the queue
     statesToExploreQueue = shrinkStates(statesToExploreQueue, numAddedNewStates)
     # Drawing graph chart
-    gp.drawCurrentlyExploredNodes(statesCompletelyExplored)
+    gp.drawCurrentlyExploredNodesGraphivz(statesCompletelyExplored)
     numAddedNewStates = 0
     # Pop a state
     currentState = statesToExploreQueue.pop(0)
