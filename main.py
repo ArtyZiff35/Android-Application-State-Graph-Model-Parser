@@ -77,7 +77,7 @@ def traverseFromRootToState(startActivityName, finalState):
     print "---> Following roadMap " + str(roadMapToFollow)
     device.startActivity(startActivityName)
     # Iterate through all UI elements necessary to reach that state from root
-    vc.sleep(3)
+    vc.sleep(2)
     for element in roadMapToFollow:
         vc.dump(window='-1')
         if element != 'START':
@@ -85,7 +85,7 @@ def traverseFromRootToState(startActivityName, finalState):
             (x, y) = handle.getXY()
             # Press it
             vc.touch(x, y)
-            vc.sleep(3)
+            vc.sleep(2)
 
 
 # This method tries to reduce the duplicate states
@@ -190,7 +190,7 @@ while len(statesToExploreQueue) != 0:
     currentState = statesToExploreQueue.pop(0)
     # Move from root to that state and update the dump to allow for button pressure
     traverseFromRootToState(startingActivityName, currentState)
-    vc.sleep(6)
+    # vc.sleep(2)
     # UPDATING THE UI ELEMENTS DICTIONARY FOR POPPED STATE
     vc.dump(window='-1')
     newDictionary = {}
@@ -217,7 +217,7 @@ while len(statesToExploreQueue) != 0:
                 # Press it
                 print 'Pressing ' + str(UiElement)
                 vc.touch(x, y)
-                vc.sleep(6)
+                vc.sleep(2)
 
                 # Now we MIGHT have ended in a new state...
                 # First check if state has changed by dumping its content
@@ -247,14 +247,14 @@ while len(statesToExploreQueue) != 0:
                         len(statesToExploreQueue))
                     traverseFromRootToState(startingActivityName, currentState)
                     numAddedNewStates = numAddedNewStates + 1
-                    vc.sleep(4)
+                    vc.sleep(2)
                     vc.dump(window='-1')
             break
         except:
             print "+++ UI has changed and could not find an element. Trying again! +++"
             # UPDATING THE UI ELEMENTS DICTIONARY FOR POPPED STATE
             traverseFromRootToState(startingActivityName, currentState)
-            vc.sleep(6)
+            vc.sleep(2)
             vc.dump(window='-1')
             newDictionary = {}
             for element in vc.viewsById:  # element is a string (uniqueID)
