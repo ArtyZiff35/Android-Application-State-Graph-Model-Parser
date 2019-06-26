@@ -205,8 +205,10 @@ while len(statesToExploreQueue) != 0:
             # Inner loop: keep going as long as we have UI elements still to explore
             for UiElement in UIelementGenerator(currentState):
 
+                # Getting info about this UI element
                 currentDictionary = currentState.getAttributesDictionary()
-                # if currentDictionary[UiElement]['clickable'] == 'true' or currentDictionary[UiElement]['long-clickable'] == 'true' or currentDictionary[UiElement]['focusable'] == 'true' or currentDictionary[UiElement]['checkable'] == 'true':
+                # if currentDictionary[UiElement]['focusable'] == 'false':
+                #     continue
                 print '\nYet to analyze ' + str(currentState.getCurrentQueueLength()) + ' UI elements'
                 # UiElement is the UniqueId of the UI element in question
                 viewHandle = vc.findViewWithAttributeOrRaise('uniqueId', UiElement, "ROOT")

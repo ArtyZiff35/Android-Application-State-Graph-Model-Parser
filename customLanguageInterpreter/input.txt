@@ -1,0 +1,8 @@
+When VIDEO app:
+In login check for same state:
+input name "ciaociao";
+
+In login check for same state:
+input password "ciaociao";
+input name "ciaociao";
+click next;
