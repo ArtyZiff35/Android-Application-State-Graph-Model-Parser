@@ -1,8 +1,15 @@
 # Generated from scriptingLanguage.g4 by ANTLR 4.7.1
 from antlr4 import *
+from testClass import testClass
 
 # This class defines a complete listener for a parse tree produced by scriptingLanguageParser.
 class scriptingLanguageListener(ParseTreeListener):
+
+    # This function the INITIALIZATION function called when the Listener is instantiated
+    def __init__(self, suiteObject):
+        # Setting the variables that will be used by the other functions that will be called in the future
+        self.testValue = 33
+        self.suiteObject = suiteObject
 
     # Enter a parse tree produced by scriptingLanguageParser#suite.
     def enterSuite(self, ctx):
@@ -10,18 +17,19 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Exit a parse tree produced by scriptingLanguageParser#suite.
     def exitSuite(self, ctx):
-        print ctx.children[1].children[0]
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#apptype.
     def enterApptype(self, ctx):
+        # Finding out the app category
+        appCategory = ctx.children[0]
+        # Setting it to the suiteObject
+        self.suiteObject.setTargetAppCategory(appCategory)
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#apptype.
     def exitApptype(self, ctx):
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#testlist.
     def enterTestlist(self, ctx):
@@ -31,7 +39,6 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTestlist(self, ctx):
         pass
 
-
     # Enter a parse tree produced by scriptingLanguageParser#testtype1.
     def enterTesttype1(self, ctx):
         pass
@@ -39,7 +46,6 @@ class scriptingLanguageListener(ParseTreeListener):
     # Exit a parse tree produced by scriptingLanguageParser#testtype1.
     def exitTesttype1(self, ctx):
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#testtype2.
     def enterTesttype2(self, ctx):
@@ -49,7 +55,6 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTesttype2(self, ctx):
         pass
 
-
     # Enter a parse tree produced by scriptingLanguageParser#testtype3.
     def enterTesttype3(self, ctx):
         pass
@@ -57,7 +62,6 @@ class scriptingLanguageListener(ParseTreeListener):
     # Exit a parse tree produced by scriptingLanguageParser#testtype3.
     def exitTesttype3(self, ctx):
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#testtype4.
     def enterTesttype4(self, ctx):
@@ -67,7 +71,6 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTesttype4(self, ctx):
         pass
 
-
     # Enter a parse tree produced by scriptingLanguageParser#testtype5.
     def enterTesttype5(self, ctx):
         pass
@@ -75,7 +78,6 @@ class scriptingLanguageListener(ParseTreeListener):
     # Exit a parse tree produced by scriptingLanguageParser#testtype5.
     def exitTesttype5(self, ctx):
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#testtype6.
     def enterTesttype6(self, ctx):
@@ -85,7 +87,6 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTesttype6(self, ctx):
         pass
 
-
     # Enter a parse tree produced by scriptingLanguageParser#testtype7.
     def enterTesttype7(self, ctx):
         pass
@@ -93,7 +94,6 @@ class scriptingLanguageListener(ParseTreeListener):
     # Exit a parse tree produced by scriptingLanguageParser#testtype7.
     def exitTesttype7(self, ctx):
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#testtype8.
     def enterTesttype8(self, ctx):
@@ -103,7 +103,6 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTesttype8(self, ctx):
         pass
 
-
     # Enter a parse tree produced by scriptingLanguageParser#testsame1.
     def enterTestsame1(self, ctx):
         pass
@@ -111,7 +110,6 @@ class scriptingLanguageListener(ParseTreeListener):
     # Exit a parse tree produced by scriptingLanguageParser#testsame1.
     def exitTestsame1(self, ctx):
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff1.
     def enterTestdiff1(self, ctx):
@@ -121,7 +119,6 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTestdiff1(self, ctx):
         pass
 
-
     # Enter a parse tree produced by scriptingLanguageParser#testsame2.
     def enterTestsame2(self, ctx):
         pass
@@ -129,7 +126,6 @@ class scriptingLanguageListener(ParseTreeListener):
     # Exit a parse tree produced by scriptingLanguageParser#testsame2.
     def exitTestsame2(self, ctx):
         pass
-
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff2.
     def enterTestdiff2(self, ctx):
@@ -139,13 +135,23 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTestdiff2(self, ctx):
         pass
 
-
     # Enter a parse tree produced by scriptingLanguageParser#testsame3.
     def enterTestsame3(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame3.
     def exitTestsame3(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with list:"
+        print self.suiteObject.testCasesList[-1].commandsList
         pass
 
 
@@ -302,12 +308,37 @@ class scriptingLanguageListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by scriptingLanguageParser#command3.
-    def enterCommand3(self, ctx):
+    # Enter a parse tree produced by scriptingLanguageParser#command3ver1.
+    def enterCommand3ver1(self, ctx):
+        # Retrieving and elaborating the input string
+        inputString = str(ctx.children[2])
+        # Crafting the command string
+        commandString = "testClass.loginInputName(" + inputString + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
-    # Exit a parse tree produced by scriptingLanguageParser#command3.
-    def exitCommand3(self, ctx):
+    # Exit a parse tree produced by scriptingLanguageParser#command3ver1.
+    def exitCommand3ver1(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#command3ver2.
+    def enterCommand3ver2(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#command3ver2.
+    def exitCommand3ver2(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#command3ver3.
+    def enterCommand3ver3(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#command3ver3.
+    def exitCommand3ver3(self, ctx):
         pass
 
 

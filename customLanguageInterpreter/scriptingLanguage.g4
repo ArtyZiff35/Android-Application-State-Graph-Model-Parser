@@ -22,6 +22,7 @@ testtype6   :   (testsame6 | testdiff6);
 testtype7   :   (testsame7 | testdiff7);
 testtype8   :   (testsame8 | testdiff8);
 
+// (ALL THOSE DECLARATIONS ARE NEEDED SO THAT WE CAN CHECK IF A COMMAND IS VALID FOR A SPECIFIC ACTIVITY TYPE AT PARSER LEVEL)
 testsame1   :   IN ACTTYPE1 CHECK FOR SAME STATE COL commandlist1;
 testdiff1   :   IN ACTTYPE1 CHECK FOR DIFFERENT STATE activitytype COL commandlist1;
 testsame2   :   IN ACTTYPE2 CHECK FOR SAME STATE COL commandlist2;
@@ -49,8 +50,10 @@ command1        :   SAME DIFFERENT;
 commandlist2    :   (command2 SEMICOL)+;
 command2        :   SAME DIFFERENT;
 // Login screen
-commandlist3    :   (command3 SEMICOL)+;
-command3        :   INPUT NAME QUOTEDSTRING | INPUT PASSWORD QUOTEDSTRING | CLICK NEXT;
+commandlist3    :   ( (command3ver1|command3ver2|command3ver3) SEMICOL)+;
+command3ver1    :   INPUT NAME QUOTEDSTRING;
+command3ver2    :   INPUT PASSWORD QUOTEDSTRING;
+command3ver3    :   CLICK NEXT;
 // List screen
 commandlist4    :   (command4 SEMICOL)+;
 command4        :   SAME DIFFERENT;
