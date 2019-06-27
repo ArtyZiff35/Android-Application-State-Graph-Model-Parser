@@ -15,17 +15,40 @@ def executeTests(suiteObject):
     print "Found " + str(len(suiteObject.testCasesList)) + " tests to be executed!\n"
     # Iterating through all of the test
     for test in suiteObject.testCasesList:
+
+        positiveResult = True
         # TODO Here we should be going to the state specified by the test
-        # Now iterating through all commands of this test
+        # Making the initial dump for the starting state
         test.initDump()
         print "TEST: Found a command list of size: " + str(len(test.commandsList))
+        # Now iterating through all commands of this test
         for command in test.commandsList:
             # Interpreting and executing commands
-            eval(command)
+            result = eval(command)
+            if result==False:
+                positiveResult = False
+                break
             # Let one second go by after a command
             time.sleep(1)
 
-        print "\n"
+        # Checking the result of the test execution (only if everything up to now was ok)
+        if positiveResult==True:
+            # Finding out the arrival state
+            resultingState = test.finalStateCheck()
+            print resultingState
+            # Comparing the arrival state with the expected state
+            if test.sameDestination == True and resultingState != "SAME":
+                positiveResult = False
+            elif test.sameDestination == False and resultingState != test.endActivityType:
+                positiveResult = False
+
+        # Printing out the esit of the test
+        if positiveResult == True:
+            print "---> TEST PASSED!\n"
+        else:
+            print "---> TEST FAILED...\n"
+
+
 
 
 def main(argv):

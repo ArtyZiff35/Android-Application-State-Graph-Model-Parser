@@ -17,6 +17,8 @@ class testClass:
         # Understanding whether we need to save a different destination activity type
         if sameDestination==False:
             self.endActivityType = endActivityType
+        # Initializing dictionary
+        self.startingElementToAttributesDictionary = None
 
 
     # Those must be function calls in string format!
@@ -52,19 +54,38 @@ class testClass:
             elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
         # Setting the class variable
         self.vc = vc
-        self.elementToAttributesDictionary = elementToAttributesDictionary
+        self.startingElementToAttributesDictionary = elementToAttributesDictionary
         self.device = device
+
+
+    ### FINAL FUNCTION TO CHECK THE STATE WHERE WE ARE ARRIVED
+    def finalStateCheck(self):
+        # Dumping for the final state
+        self.vc.dump(window='-1')
+        self.vc.sleep(1)
+        elementToAttributesDictionary = {}
+        for element in self.vc.viewsById:  # element is a string (uniqueID)
+            # Getting the dictionary of attributes for this specific UI element ('attribute name -> value')
+            elementAttributes = self.vc.viewsById[element].map
+            # Adding that to the general dictionary for all UI elements of this state ('UI element -> attributes dictionary')
+            elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
+
+        # Finally comparing the current dump with the one of the initial state
+        if elementToAttributesDictionary == self.startingElementToAttributesDictionary:
+            return "SAME"
+        else:
+            return "DIFFERENT"
 
 
     ### LOGIN - TYPE 3 ###
     def loginInputName(self, inputName):
         success = False
         # Trying to find the 'name' field
-        for element in self.elementToAttributesDictionary:
+        for element in self.startingElementToAttributesDictionary:
             # Finding out if this is an Edittext first
-            if "edittext" in str(self.elementToAttributesDictionary[element]["class"]).lower():
+            if "edittext" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
                 # Avoiding the password field
-                if self.elementToAttributesDictionary[element]["password"]=="false":
+                if self.startingElementToAttributesDictionary[element]["password"]== "false":
                     # Finding the element and typing
                     address = self.vc.findViewByIdOrRaise(element)
                     address.type(inputName)
@@ -74,17 +95,19 @@ class testClass:
         # Determining if we had success
         if success == True:
             print "Command OK!"
+            return True
         else:
             print "Command NOT EXECUTED"
+            return False
 
     def loginInputPassword(self, inputPassword):
         success = False
         # Trying to find the 'password' field
-        for element in self.elementToAttributesDictionary:
+        for element in self.startingElementToAttributesDictionary:
             # Finding out if this is an Edittext first
-            if "edittext" in str(self.elementToAttributesDictionary[element]["class"]).lower():
+            if "edittext" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
                 # Finding the password field
-                if self.elementToAttributesDictionary[element]["password"] == "true":
+                if self.startingElementToAttributesDictionary[element]["password"] == "true":
                     # Finding the element and typing
                     address = self.vc.findViewByIdOrRaise(element)
                     address.type(inputPassword)
@@ -94,18 +117,20 @@ class testClass:
         # Determining if we had success
         if success == True:
             print "Command OK!"
+            return True
         else:
             print "Command NOT EXECUTED"
+            return False
 
     def clickNext(self):
         success = False
         # Trying to find the 'password' field
-        for element in self.elementToAttributesDictionary:
+        for element in self.startingElementToAttributesDictionary:
             # Finding the button elements
-            if "button" in str(self.elementToAttributesDictionary[element]["class"]).lower():
+            if "button" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
                 # Checking that this is a 'next' button
                 hints = ['login', 'log', 'signup', 'sign', 'create', 'next']
-                text = str(self.elementToAttributesDictionary[element]["text"]).lower()
+                text = str(self.startingElementToAttributesDictionary[element]["text"]).lower()
                 for hint in hints:
                     if hint in text:
                         # Now we just have to find the element and click it
@@ -117,5 +142,7 @@ class testClass:
         # Determining if we had success
         if success == True:
             print "Command OK!"
+            return True
         else:
             print "Command NOT EXECUTED"
+            return False
