@@ -150,8 +150,7 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitTestsame3(self, ctx):
         # Eventually adding the test to its suite
         self.suiteObject.addTestObject(self.tempTest)
-        print "Done with list:"
-        print self.suiteObject.testCasesList[-1].commandsList
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
@@ -313,7 +312,7 @@ class scriptingLanguageListener(ParseTreeListener):
         # Retrieving and elaborating the input string
         inputString = str(ctx.children[2])
         # Crafting the command string
-        commandString = "testClass.loginInputName(" + inputString + ")"
+        commandString = "test.loginInputName(" + inputString + ")"
         # Adding the command to the list of the temporary test
         self.tempTest.appendCommandFunction(commandString)
         print "Entering command: " + commandString
@@ -326,6 +325,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command3ver2.
     def enterCommand3ver2(self, ctx):
+        # Retrieving and elaborating the input string
+        inputString = str(ctx.children[2])
+        # Crafting the command string
+        commandString = "test.loginInputPassword(" + inputString + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command3ver2.
@@ -335,6 +341,10 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command3ver3.
     def enterCommand3ver3(self, ctx):
+        # Simply adding the 'click next' command
+        commandString = "test.clickNext()"
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command3ver3.

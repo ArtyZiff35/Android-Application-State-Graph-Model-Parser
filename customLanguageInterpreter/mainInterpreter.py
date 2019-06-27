@@ -3,8 +3,29 @@ from antlr4 import *
 from scriptingLanguageLexer import scriptingLanguageLexer
 from scriptingLanguageParser import scriptingLanguageParser
 from scriptingLanguageListener import scriptingLanguageListener
-from suiteClass import suiteClass
+from suiteClass import *
+import time
 
+
+
+
+def executeTests(suiteObject):
+
+    print "\n\n\n-------------------------------------------------------\n"
+    print "Found " + str(len(suiteObject.testCasesList)) + " tests to be executed!\n"
+    # Iterating through all of the test
+    for test in suiteObject.testCasesList:
+        # TODO Here we should be going to the state specified by the test
+        # Now iterating through all commands of this test
+        test.initDump()
+        print "TEST: Found a command list of size: " + str(len(test.commandsList))
+        for command in test.commandsList:
+            # Interpreting and executing commands
+            eval(command)
+            # Let one second go by after a command
+            time.sleep(1)
+
+        print "\n"
 
 
 def main(argv):
@@ -24,10 +45,12 @@ def main(argv):
     suiteObject = suiteClass()
 
     # Instantiating the Listener
-    htmlChat = scriptingLanguageListener(suiteObject)
+    results = scriptingLanguageListener(suiteObject)
     walker = ParseTreeWalker()
-    walker.walk(htmlChat, tree)
+    walker.walk(results, tree)
 
+    # EXECUTING THE TESTS
+    executeTests(suiteObject)
 
 
 
