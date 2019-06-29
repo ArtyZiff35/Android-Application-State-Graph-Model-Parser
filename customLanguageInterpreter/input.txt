@@ -1,10 +1,4 @@
 When VIDEO app:
 
-In login check for same state:
-input name "stringa2@gmail.com";
-input password "password";
-click next;
-
-In login check for same state:
-input name "stringa1";
-click next;
+In todo check for different state Portal:
+    ADD TASK "blabla";

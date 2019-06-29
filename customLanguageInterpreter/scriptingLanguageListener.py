@@ -113,10 +113,20 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff1.
     def enterTestdiff1(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, "Any")
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff1.
     def exitTestdiff1(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame2.
@@ -273,6 +283,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command1ver1.
     def enterCommand1ver1(self, ctx):
+        # Retrieving the input string for the note name
+        inputString = str(ctx.children[2])
+        # Creafting the command string
+        commandString = "test.todoAddNewNote(" + inputString + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command1ver1.
