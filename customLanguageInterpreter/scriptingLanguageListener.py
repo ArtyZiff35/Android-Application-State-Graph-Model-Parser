@@ -716,4 +716,84 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitCommand8ver5(self, ctx):
         pass
 
+    # Enter a parse tree produced by scriptingLanguageParser#commandCustomClick.
+    def enterCommandCustomClick(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#commandCustomClick.
+    def exitCommandCustomClick(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#commandCustomLongClick.
+    def enterCommandCustomLongClick(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#commandCustomLongClick.
+    def exitCommandCustomLongClick(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#commandCustomDrag.
+    def enterCommandCustomDrag(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#commandCustomDrag.
+    def exitCommandCustomDrag(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#commandCustomType.
+    def enterCommandCustomType(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#commandCustomType.
+    def exitCommandCustomType(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#commandCustomBack.
+    def enterCommandCustomBack(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#commandCustomBack.
+    def exitCommandCustomBack(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#testCustom.
+    def enterTestCustom(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#testCustom.
+    def exitTestCustom(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#testSlot1.
+    def enterTestSlot1(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#testSlot1.
+    def exitTestSlot1(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#testSlot2.
+    def enterTestSlot2(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#testSlot2.
+    def exitTestSlot2(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#testSlot3.
+    def enterTestSlot3(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#testSlot3.
+    def exitTestSlot3(self, ctx):
+        pass
+
 

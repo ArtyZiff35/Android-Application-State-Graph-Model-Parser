@@ -1,4 +1,13 @@
 When VIDEO app:
 
-In todo check for different state Portal:
-    ADD TASK "blabla";
+
+IN TODO check for DIFFERENT state LOGIN:
+    add task "title";
+
+In LOGIN check for SAME state:
+    Input PaSsWorD "pass";
+    Input namE "arturo";
+    INPUT NAME "@";
+    Input Password "word";
+    input name "gmail.com";
+    Click next;
