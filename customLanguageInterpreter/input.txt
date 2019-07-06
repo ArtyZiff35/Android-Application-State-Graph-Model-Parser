@@ -1,8 +1,11 @@
 When VIDEO app:
 
 
-IN TODO check for DIFFERENT state LOGIN:
-    add task "title";
+IN AD check for SAME state:
+    CUSTOM LONG CLICK 50 32;
+    CUSTOM PRESS DEVICE BACK;
+    CUSTOM TYPE "thisisatest";
+
 
 In LOGIN check for SAME state:
     Input PaSsWorD "pass";

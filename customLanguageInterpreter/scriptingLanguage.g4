@@ -55,7 +55,7 @@ command1ver7    :   SWIPE DOWN;
 // Ads screen
 commandlist2    :   ( (command2ver1|command2ver2|command2ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|testCustom) SEMICOL)+;
 command2ver1    :   CLICK CLOSE;
-command2ver2    :   CLICK AD;
+command2ver2    :   CLICK ACTTYPE2;
 command2ver3    :   PRESS BACK;
 // Login screen
 commandlist3    :   ( (command3ver1|command3ver2|command3ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|testCustom) SEMICOL)+;
@@ -72,7 +72,7 @@ command4ver5    :   PRESS BACK;
 command4ver6    :   SWIPE UP;
 command4ver7    :   SWIPE DOWN;
 // Portal screen
-commandlist5    :   ( (command5ver1|command5ver2|command5ver3|command5ver4|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|testCustom) SEMICOL);
+commandlist5    :   ( (command5ver1|command5ver2|command5ver3|command5ver4|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|testCustom) SEMICOL)+;
 command5ver1    :   SWIPE UP;
 command5ver2    :   SWIPE DOWN;
 command5ver3    :   SWIPE LEFT;
@@ -163,7 +163,6 @@ PASSWORD    :   P A S S W O R D;
 CLICK       :   C L I C K;
 NEXT        :   N E X T;
 CLOSE       :   C L O S E;
-AD          :   A D;
 PRESS       :   P R E S S;
 BACK        :   B A C K;
 LINE        :   L I N E;

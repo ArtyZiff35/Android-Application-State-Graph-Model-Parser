@@ -105,10 +105,20 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame1.
     def enterTestsame1(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame1.
     def exitTestsame1(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff1.
@@ -117,7 +127,7 @@ class scriptingLanguageListener(ParseTreeListener):
         startingActivity = str(ctx.children[1])
         print "\nAbout to parse a test for activity: " + startingActivity
         # Instantiating the test object
-        testObject = testClass(startingActivity, False, "Any")
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
         # Setting this object as temporary up to when we have filled all its commands
         self.tempTest = testObject
         pass
@@ -131,18 +141,38 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame2.
     def enterTestsame2(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame2.
     def exitTestsame2(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff2.
     def enterTestdiff2(self, ctx):
+        # Retrieving the starting activity type
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff2.
     def exitTestdiff2(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame3.
@@ -166,100 +196,210 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff3.
     def enterTestdiff3(self, ctx):
+        # Retrieving the starting activity type
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff3.
     def exitTestdiff3(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame4.
     def enterTestsame4(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame4.
     def exitTestsame4(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff4.
     def enterTestdiff4(self, ctx):
+        # Retrieving the starting activity type
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff4.
     def exitTestdiff4(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame5.
     def enterTestsame5(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame5.
     def exitTestsame5(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff5.
     def enterTestdiff5(self, ctx):
+        # Retrieving the starting activity type
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff5.
     def exitTestdiff5(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame6.
     def enterTestsame6(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame6.
     def exitTestsame6(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff6.
     def enterTestdiff6(self, ctx):
+        # Retrieving the starting activity type
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff6.
     def exitTestdiff6(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame7.
     def enterTestsame7(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame7.
     def exitTestsame7(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff7.
     def enterTestdiff7(self, ctx):
+        # Retrieving the starting activity type
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff7.
     def exitTestdiff7(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testsame8.
     def enterTestsame8(self, ctx):
+        # This is the case of LOGIN activity
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, True)
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testsame8.
     def exitTestsame8(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
     # Enter a parse tree produced by scriptingLanguageParser#testdiff8.
     def enterTestdiff8(self, ctx):
+        # Retrieving the starting activity type
+        startingActivity = str(ctx.children[1])
+        print "\nAbout to parse a test for activity: " + startingActivity
+        # Instantiating the test object
+        testObject = testClass(startingActivity, False, str(ctx.children[6].children[0]))
+        # Setting this object as temporary up to when we have filled all its commands
+        self.tempTest = testObject
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#testdiff8.
     def exitTestdiff8(self, ctx):
+        # Eventually adding the test to its suite
+        self.suiteObject.addTestObject(self.tempTest)
+        print "Done with " + str(len(self.suiteObject.testCasesList)) + " tests"
         pass
 
 
@@ -718,6 +858,14 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomClick.
     def enterCommandCustomClick(self, ctx):
+        # Retrieving screen coordinates
+        x = ctx.children[2]
+        y = ctx.children[3]
+        # Crafting the command string
+        commandString = "test.customClick(" + str(x) + "," + str(y) + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#commandCustomClick.
@@ -727,6 +875,14 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomLongClick.
     def enterCommandCustomLongClick(self, ctx):
+        # Retrieving screen coordinates
+        x = ctx.children[3]
+        y = ctx.children[4]
+        # Crafting the command string
+        commandString = "test.customLongClick(" + str(x) + "," + str(y) + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#commandCustomLongClick.
@@ -736,6 +892,17 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomDrag.
     def enterCommandCustomDrag(self, ctx):
+        # Retrieving screen coordinates and drag duration
+        xStart = ctx.children[3]
+        yStart = ctx.children[4]
+        xEnd = ctx.children[6]
+        yEnd = ctx.children[7]
+        duration = ctx.children[9]
+        # Crafting the command string
+        commandString = "test.customDrag(" + str(xStart) + "," + str(yStart) + "," + str(xEnd) + "," + str(yEnd) + "," + str(duration) + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#commandCustomDrag.
@@ -745,6 +912,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomType.
     def enterCommandCustomType(self, ctx):
+        # Retrieving screen coordinates
+        inputString = ctx.children[2]
+        # Crafting the command string
+        commandString = "test.customType(" + str(inputString) + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#commandCustomType.
@@ -754,6 +928,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomBack.
     def enterCommandCustomBack(self, ctx):
+        # Crafting the command string
+        commandString = "test.customPressBack()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#commandCustomBack.

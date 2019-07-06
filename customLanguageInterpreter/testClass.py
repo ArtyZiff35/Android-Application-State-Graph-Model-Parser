@@ -2,6 +2,8 @@ import subprocess
 from com.dtmilano.android.viewclient import ViewClient, View, ViewClientOptions
 from com.dtmilano.android.adb import adbclient
 from com.dtmilano.android.common import debugArgsToDict
+import subprocess
+import re
 
 
 class testClass:
@@ -76,6 +78,118 @@ class testClass:
         else:
             # TODO: Here we would check which type of state is this and return its type
             return "DIFFERENT"
+
+
+    ### CUSTOM FUNCTIONS ###
+    def customClick(self, xCord, yCord):
+        success = False
+        # Converting to float
+        xCord = float(xCord)
+        yCord = float(yCord)
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Checking if the given coordinates are in the correct range
+        if screenWidth >= xCord >= 0 and screenHeight >= yCord >= 0:
+            success = True
+        # Determining if we had success
+        if success == True:
+            # Pressing the screen
+            self.device.touch(xCord, yCord)
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED - Out of screen bounds"
+            return False
+
+    def customLongClick(self, xCord, yCord):
+        success = False
+        # Converting to float
+        xCord = float(xCord)
+        yCord = float(yCord)
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Checking if the given coordinates are in the correct range
+        if screenWidth >= xCord >= 0 and screenHeight >= yCord >= 0:
+            success = True
+        # Determining if we had success
+        if success == True:
+            # Long-pressing the screen
+            self.device.drag((xCord,yCord), (xCord,yCord), 2000)
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED - Out of screen bounds"
+            return False
+
+
+    def customDrag(self, xCordStart, yCordStart, xCordEnd, yCordEnd, duration):
+        success = False
+        # Converting to float
+        xCordStart = float(xCordStart)
+        yCordStart = float(yCordStart)
+        xCordEnd = float(xCordEnd)
+        yCordEnd = float(yCordEnd)
+        duration = int(duration)
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Checking if the given coordinates are in the correct range
+        if screenWidth >= xCordStart >= 0 and screenHeight >= yCordStart >= 0 and screenWidth >= xCordEnd >= 0 and screenHeight >= yCordEnd >= 0:
+            success = True
+        # Determining if we had success
+        if success == True:
+            # Long-pressing the screen
+            self.device.drag((xCordStart, yCordStart), (xCordEnd, yCordEnd), duration)
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED - Out of screen bounds"
+            return False
+
+
+    def customType(self, inputString):
+        success = False
+        if self.device.isKeyboardShown():
+            # This command requires the keyboard to be opened
+            self.device.type(inputString)
+            self.device.press('KEYCODE_BACK')
+            self.vc.sleep(1)
+            success = True
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED - Could not input text"
+            return False
+
+    def customPressBack(self):
+        # Pressing the back device button
+        self.device.press('KEYCODE_BACK')
+        print "Command OK!"
 
     ### TODO - TYPE 1 ###
     def todoAddNewNote(self, inputNoteTitle):
