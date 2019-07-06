@@ -859,8 +859,8 @@ class scriptingLanguageListener(ParseTreeListener):
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomClick.
     def enterCommandCustomClick(self, ctx):
         # Retrieving screen coordinates
-        x = ctx.children[2]
-        y = ctx.children[3]
+        x = ctx.children[2].children[0]
+        y = ctx.children[2].children[1]
         # Crafting the command string
         commandString = "test.customClick(" + str(x) + "," + str(y) + ")"
         # Adding the command to the list of the temporary test
@@ -876,8 +876,8 @@ class scriptingLanguageListener(ParseTreeListener):
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomLongClick.
     def enterCommandCustomLongClick(self, ctx):
         # Retrieving screen coordinates
-        x = ctx.children[3]
-        y = ctx.children[4]
+        x = ctx.children[3].children[0]
+        y = ctx.children[3].children[1]
         # Crafting the command string
         commandString = "test.customLongClick(" + str(x) + "," + str(y) + ")"
         # Adding the command to the list of the temporary test
@@ -893,11 +893,11 @@ class scriptingLanguageListener(ParseTreeListener):
     # Enter a parse tree produced by scriptingLanguageParser#commandCustomDrag.
     def enterCommandCustomDrag(self, ctx):
         # Retrieving screen coordinates and drag duration
-        xStart = ctx.children[3]
-        yStart = ctx.children[4]
-        xEnd = ctx.children[6]
-        yEnd = ctx.children[7]
-        duration = ctx.children[9]
+        xStart = ctx.children[3].children[0]
+        yStart = ctx.children[3].children[1]
+        xEnd = ctx.children[5].children[0]
+        yEnd = ctx.children[5].children[1]
+        duration = ctx.children[7]
         # Crafting the command string
         commandString = "test.customDrag(" + str(xStart) + "," + str(yStart) + "," + str(xEnd) + "," + str(yEnd) + "," + str(duration) + ")"
         # Adding the command to the list of the temporary test

@@ -101,11 +101,12 @@ command8ver5    :   SWIPE DOWN;
 
 
 // Custom commands that can be used anywhere
-commandCustomClick  :   CUSTOM CLICK XPOINT YPOINT;
-commandCustomLongClick  :   CUSTOM LONG CLICK XPOINT YPOINT;
-commandCustomDrag   :   CUSTOM DRAG FROM XPOINT YPOINT TO XPOINT YPOINT DURATION NUMBER;
+commandCustomClick  :   CUSTOM CLICK coordinate;
+commandCustomLongClick  :   CUSTOM LONG CLICK coordinate;
+commandCustomDrag   :   CUSTOM DRAG FROM coordinate TO coordinate DURATION NUMBER;
 commandCustomType   :   CUSTOM TYPE QUOTEDSTRING;
 commandCustomBack   :   CUSTOM PRESS DEVICE BACK;
+coordinate  :   NUMBER NUMBER;
 
 // Command to execute pre-made tests
 testCustom  :   EXECUTE (testSlot1|testSlot2|testSlot3);
@@ -184,8 +185,6 @@ ADD         :   A D D;
 TASK        :   T A S K;
 CUSTOM      :   C U S T O M;
 DRAG        :   D R A G;
-XPOINT      :   NUMBER;
-YPOINT      :   NUMBER;
 FROM        :   F R O M;
 TO          :   T O;
 DURATION    :   D U R A T I O N;
