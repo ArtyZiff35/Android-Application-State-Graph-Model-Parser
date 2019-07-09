@@ -7,6 +7,8 @@ import psutil
 import os
 import time
 import sys
+import pyautogui
+
 
 
 # Method to kill a process
@@ -22,26 +24,17 @@ def getTimestamp(line):
 # Instantiating the output file
 shellFileName = "./outputFiles/out.txt"
 
-# outFile = open(shellFileName, 'w')
-# # Calling ADB shell
-# proc = subprocess.Popen(["adb", "shell"],stdin=subprocess.PIPE, stdout=outFile, stderr=outFile)
-# # Asking for the getevent util
-# proc.stdin.write("getevent -l /dev/input/event1")
-# proc.stdin.write("\n")
-# proc.stdin.flush()
-# print "\nRecording..."
-# # Managing main loop
-# while True:
-#     userInput = str(raw_input("To stop recording, type 'q': "))
-#     print userInput
-#     if userInput=='q' or userInput=='Q':
-#         break
-# # Stopping the recording subprocess
-# print "Stopped Recording!"
-# kill(proc.pid)
-# outFile.flush()
-# outFile.close()
-
+# Mini auto script to start emulator recording via adb shell
+os.system("start cmd")
+time.sleep(1)
+pyautogui.typewrite('cd C:/Users/artur/PycharmProjects/AndroidTestingPy27/outputFiles')
+pyautogui.press('enter')
+pyautogui.typewrite('adb shell > out.txt')
+pyautogui.press('enter')
+pyautogui.typewrite('getevent -lt /dev/input/event1')
+pyautogui.press('enter')
+print "\n\n---> RECORDING...\n"
+raw_input("Press a key to stop recording...\n")
 
 # Preparing the output script
 outputScriptName = "./outputFiles/outputScript.txt"
@@ -85,6 +78,11 @@ with open(shellFileName) as fp:
                 finalTime = getTimestamp(line)
                 delta = (finalTime - initialTime)
                 status = "UP"
+                # Checking for an edge case
+                if initialX == 0:
+                    initialX = currentX
+                if initialY == 0:
+                    initialY = currentY
                 # Writing command to file
                 outputScriptFile.write("\tCUSTOM DRAG FROM " + str(initialX) + " " + str(initialY) + " TO " + str(currentX) + " " + str(currentY) + " DURATION " + str(delta*1000) + " ;\n")
                 print "RELEASING after " + str(delta) + " secs"
