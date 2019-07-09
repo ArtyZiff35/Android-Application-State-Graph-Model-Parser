@@ -939,6 +939,30 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitCommandCustomBack(self, ctx):
         pass
 
+    # Enter a parse tree produced by scriptingLanguageParser#commandCustomSleep.
+    def enterCommandCustomSleep(self, ctx):
+        # Getting the seconds of sleep
+        inputString = ctx.children[2]
+        # Crafting the command string
+        commandString = "test.customSleep(" + str(inputString) + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#commandCustomSleep.
+    def exitCommandCustomSleep(self, ctx):
+        pass
+
+
+    # Enter a parse tree produced by scriptingLanguageParser#coordinate.
+    def enterCoordinate(self, ctx):
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#coordinate.
+    def exitCoordinate(self, ctx):
+        pass
+
 
     # Enter a parse tree produced by scriptingLanguageParser#testCustom.
     def enterTestCustom(self, ctx):

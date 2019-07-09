@@ -1,9 +1,9 @@
-import subprocess
 from com.dtmilano.android.viewclient import ViewClient, View, ViewClientOptions
 from com.dtmilano.android.adb import adbclient
 from com.dtmilano.android.common import debugArgsToDict
 import subprocess
 import re
+import time
 
 
 class testClass:
@@ -190,6 +190,14 @@ class testClass:
         # Pressing the back device button
         self.device.press('KEYCODE_BACK')
         print "Command OK!"
+
+    def customSleep(self, stringMilliSecs):
+        # Getting the number of milliseconds to wait
+        milliSecs = int(stringMilliSecs)
+        secs = milliSecs/1000
+        self.vc.sleep(secs)
+        print "Command OK!"
+
 
     ### TODO - TYPE 1 ###
     def todoAddNewNote(self, inputNoteTitle):

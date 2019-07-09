@@ -29,7 +29,7 @@ def executeTests(suiteObject):
                 positiveResult = False
                 break
             # Let one second go by after a command
-            time.sleep(1)
+            # time.sleep(1)
 
         # Checking the result of the test execution (only if everything up to now was ok)
         if positiveResult==True:
@@ -54,7 +54,8 @@ def executeTests(suiteObject):
 def main(argv):
 
     # Setting the input file containing the input string
-    input = FileStream("./input.txt")
+    # input = FileStream("./input.txt")
+    input = FileStream("./../outputFiles/outputScript.txt")
 
     # Instantiating the Lexer
     lexer = scriptingLanguageLexer(input)
