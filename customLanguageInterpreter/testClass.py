@@ -1,6 +1,7 @@
 from com.dtmilano.android.viewclient import ViewClient, View, ViewClientOptions
 from com.dtmilano.android.adb import adbclient
 from com.dtmilano.android.common import debugArgsToDict
+from activityStateDetector import activityStateDetector
 import subprocess
 import re
 import time
@@ -61,14 +62,24 @@ class testClass:
 
 
     ### FINAL FUNCTION TO CHECK THE STATE WHERE WE ARE ARRIVED
-    def finalStateCheck(self):
-        # Dumping for the final state
-        self.vc.dump(window='-1')
-        self.vc.sleep(1)
+    def finalStateCheck(self, logisticRegr):
+        # Setting the ViewClient's options
+        kwargs1 = {'ignoreversioncheck': False, 'verbose': False, 'ignoresecuredevice': True}
+        kwargs2 = {'forceviewserveruse': False, 'useuiautomatorhelper': False, 'ignoreuiautomatorkilled': True,
+                   'autodump': False, 'startviewserver': True, 'compresseddump': False}
+        # Connecting to the Device
+        device, serialno = ViewClient.connectToDeviceOrExit(**kwargs1)
+        # Instatiation of the ViewClient for the selected Device: this is an interface for the device's views
+        vc = ViewClient(device, serialno, **kwargs2)
+        if vc.useUiAutomator:
+            print "ViewClient: using UiAutomator backend"
+        # Dumping
+        vc.dump(window='-1')
+        vc.sleep(1)
         elementToAttributesDictionary = {}
-        for element in self.vc.viewsById:  # element is a string (uniqueID)
+        for element in vc.viewsById:  # element is a string (uniqueID)
             # Getting the dictionary of attributes for this specific UI element ('attribute name -> value')
-            elementAttributes = self.vc.viewsById[element].map
+            elementAttributes = vc.viewsById[element].map
             # Adding that to the general dictionary for all UI elements of this state ('UI element -> attributes dictionary')
             elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
 
@@ -76,8 +87,9 @@ class testClass:
         if elementToAttributesDictionary == self.startingElementToAttributesDictionary:
             return "SAME"
         else:
-            # TODO: Here we would check which type of state is this and return its type
-            return "DIFFERENT"
+            # If the state is different, return its detected type
+            stateType = activityStateDetector.detectActivity(logisticRegr)
+            return stateType
 
 
     ### CUSTOM FUNCTIONS ###

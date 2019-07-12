@@ -4,12 +4,13 @@ from scriptingLanguageLexer import scriptingLanguageLexer
 from scriptingLanguageParser import scriptingLanguageParser
 from scriptingLanguageListener import scriptingLanguageListener
 from suiteClass import *
+from activityStateDetector import activityStateDetector
 import time
 
 
 
 
-def executeTests(suiteObject):
+def executeTests(suiteObject, logisticRegr):
 
     print "\n\n\n-------------------------------------------------------\n"
     print "Found " + str(len(suiteObject.testCasesList)) + " tests to be executed!\n"
@@ -34,12 +35,12 @@ def executeTests(suiteObject):
         # Checking the result of the test execution (only if everything up to now was ok)
         if positiveResult==True:
             # Finding out the arrival state
-            resultingState = test.finalStateCheck()
-            print resultingState
+            resultingState = test.finalStateCheck(logisticRegr)
+            print "\nWe ended up in " + resultingState + " activity \n"
             # Comparing the arrival state with the expected state
             if test.sameDestination == True and resultingState != "SAME":
                 positiveResult = False
-            elif test.sameDestination == False and resultingState != test.endActivityType:
+            elif test.sameDestination == False and str(resultingState).lower() != str(test.endActivityType).lower():
                 positiveResult = False
 
         # Printing out the esit of the test
@@ -73,8 +74,11 @@ def main(argv):
     walker = ParseTreeWalker()
     walker.walk(results, tree)
 
+    # Preparing the Logistic Regression model
+    logisticRegr = activityStateDetector.trainModel()
+
     # EXECUTING THE TESTS
-    executeTests(suiteObject)
+    executeTests(suiteObject, logisticRegr)
 
 
 
