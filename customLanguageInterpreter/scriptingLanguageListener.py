@@ -589,6 +589,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command4ver1.
     def enterCommand4ver1(self, ctx):
+        # Retrieving and elaborating the input string
+        lineNumber = str(ctx.children[2])
+        # Crafting the command string
+        commandString = "test.clickListLine(" + lineNumber + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command4ver1.
@@ -625,6 +632,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command4ver5.
     def enterCommand4ver5(self, ctx):
+        # Crafting the command string
+        commandString = "test.customPressBack()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command4ver5.

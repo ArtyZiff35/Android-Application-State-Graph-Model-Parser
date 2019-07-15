@@ -231,6 +231,8 @@ class testClass:
                             self.vc.sleep(2)
                             success = True
                             break
+            if success == True:
+                break
 
         # If everything went ok up to now, find an EditText where to write the note title
         if success == True:
@@ -248,8 +250,8 @@ class testClass:
             for element in elementToAttributesDictionary:
                 if "edittext" in str(elementToAttributesDictionary[element]["class"]).lower():
                     # Finding some hints
-                    hints = ['task', 'title', 'name']
-                    text = str(elementToAttributesDictionary[element]["text"]).lower()
+                    hints = ['title', 'name', 'task']
+                    text = (elementToAttributesDictionary[element]["text"]).encode('utf-8').lower()
                     for hint in hints:
                         if hint in text:
                             # Finding the element and typing
@@ -260,6 +262,8 @@ class testClass:
                             success = True
                             self.vc.sleep(2)
                             break
+                if success == True:
+                    break
         # Now that we have added the note, we need to press "next" button
         if success == True:
             success = False
@@ -272,14 +276,15 @@ class testClass:
                 elementAttributes = self.vc.viewsById[element].map
                 # Adding that to the general dictionary for all UI elements of this state ('UI element -> attributes dictionary')
                 elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
-            # Find an edittext
+            # Find a Next button
             for element in elementToAttributesDictionary:
                 if elementToAttributesDictionary[element]["clickable"] == "true":
                     # Finding some hints
-                    hints = ['add', 'next']
-                    text = str(elementToAttributesDictionary[element]["text"]).lower()
+                    hints = ['add', 'next', 'save', 'create']
+                    text = (elementToAttributesDictionary[element]["text"]).encode('utf-8').lower()
+                    desc = (elementToAttributesDictionary[element]["content-desc"]).encode('utf-8').lower()
                     for hint in hints:
-                        if hint in text:
+                        if (hint in text) or (hint in desc):
                             # We have found the right "add note button", therefore click it
                             address = self.vc.findViewByIdOrRaise(element)
                             address.touch()
@@ -309,6 +314,7 @@ class testClass:
                     if self.device.isKeyboardShown():
                         self.device.press('KEYCODE_BACK')
                     success = True
+                    break
         # Determining if we had success
         if success == True:
             print "Command OK!"
@@ -331,6 +337,7 @@ class testClass:
                     if self.device.isKeyboardShown():
                         self.device.press('KEYCODE_BACK')
                     success = True
+                    break
         # Determining if we had success
         if success == True:
             print "Command OK!"
@@ -344,17 +351,20 @@ class testClass:
         # Trying to find the 'password' field
         for element in self.startingElementToAttributesDictionary:
             # Finding the button elements
-            if "button" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
+            if "button" in str(self.startingElementToAttributesDictionary[element]["class"]).lower() or str(self.startingElementToAttributesDictionary[element]["clickable"]) == "true":
                 # Checking that this is a 'next' button thanks to some hint words
                 hints = ['login', 'log', 'signup', 'sign', 'create', 'next']
-                text = str(self.startingElementToAttributesDictionary[element]["text"]).lower()
+                text = (self.startingElementToAttributesDictionary[element]["text"]).encode('utf-8').lower()
+                desc = (self.startingElementToAttributesDictionary[element]["content-desc"]).encode('utf-8').lower()
                 for hint in hints:
-                    if hint in text:
+                    if (hint in text) or (hint in desc):
                         # Now we just have to find the element and click it
                         address = self.vc.findViewByIdOrRaise(element)
                         address.touch()
                         self.vc.sleep(1)
                         success = True
+                if success == True:
+                    break
 
         # Determining if we had success
         if success == True:
@@ -362,4 +372,33 @@ class testClass:
             return True
         else:
             print "Command NOT EXECUTED"
+            return False
+
+
+
+    ### LIST - TYPE 4 ###
+
+    def clickListLine(self, lineNumber):
+        success = False
+        # Trying to find the Nth line
+        for element in self.startingElementToAttributesDictionary:
+            # Finding the Linear Layout elements
+            if "linearlayout" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
+                # Checking that this is the right line number
+                if str(self.startingElementToAttributesDictionary[element]["index"]) == str(lineNumber):
+                    # Now we just have to find the element and click it
+                    address = self.vc.findViewByIdOrRaise(element)
+                    address.touch()
+                    self.vc.sleep(1)
+                    success = True
+                if success == True:
+                    break
+
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            self.vc.sleep(1)
+            return True
+        else:
+            print "Command NOT EXECUTED - Could not find line index " + str(lineNumber)
             return False
