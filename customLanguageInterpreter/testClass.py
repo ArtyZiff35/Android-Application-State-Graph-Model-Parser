@@ -57,7 +57,7 @@ class testClass:
             elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
         # Setting the class variable
         self.vc = vc
-        self.startingElementToAttributesDictionary = elementToAttributesDictionary
+        self.startingElementToAttributesDictionary = dict(elementToAttributesDictionary)
         self.device = device
 
 
@@ -74,7 +74,7 @@ class testClass:
         if vc.useUiAutomator:
             print "ViewClient: using UiAutomator backend"
         # Dumping
-        vc.dump(window='-1')
+        vc.dump(window='-1',sleep=2)
         vc.sleep(1)
         elementToAttributesDictionary = {}
         for element in vc.viewsById:  # element is a string (uniqueID)
@@ -216,21 +216,20 @@ class testClass:
         success = False
         # Trying to find an Image button (generally the "add note button" is a fab in the bottom of the screen)
         for element in self.startingElementToAttributesDictionary:
-            if "imagebutton" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
-                if self.startingElementToAttributesDictionary[element]["clickable"] == "true":
-                    # Now we need to find some keywords that are generally hidden in the resource id of the element
-                    hints = ['fab', 'add', 'new', 'create', 'write']
-                    text = str(self.startingElementToAttributesDictionary[element]["resource-id"]).lower()
-                    for hint in hints:
-                        if hint in text:
-                            # We have found the right "add note button", therefore click it
-                            address = self.vc.findViewByIdOrRaise(element)
-                            address.touch()
-                            if self.device.isKeyboardShown():
-                                self.device.press('KEYCODE_BACK')
-                            self.vc.sleep(2)
-                            success = True
-                            break
+            if ("imagebutton" in str(self.startingElementToAttributesDictionary[element]["class"]).lower()) or (self.startingElementToAttributesDictionary[element]["clickable"] == "true"):
+                # Now we need to find some keywords that are generally hidden in the resource id of the element
+                hints = ['fab', 'add', 'new', 'create', 'write']
+                text = str(self.startingElementToAttributesDictionary[element]["resource-id"]).lower()
+                for hint in hints:
+                    if hint in text:
+                        # We have found the right "add note button", therefore click it
+                        address = self.vc.findViewByIdOrRaise(element)
+                        address.touch()
+                        if self.device.isKeyboardShown():
+                            self.device.press('KEYCODE_BACK')
+                        self.vc.sleep(2)
+                        success = True
+                        break
             if success == True:
                 break
 
@@ -238,8 +237,8 @@ class testClass:
         if success == True:
             success = False
             # Dumping
-            self.vc.dump(window='-1')
-            self.vc.sleep(1)
+            self.vc.dump(window='-1',sleep=1)
+            self.vc.sleep(2)
             elementToAttributesDictionary = {}
             for element in self.vc.viewsById:  # element is a string (uniqueID)
                 # Getting the dictionary of attributes for this specific UI element ('attribute name -> value')
@@ -268,7 +267,7 @@ class testClass:
         if success == True:
             success = False
             # Dumping
-            self.vc.dump(window='-1')
+            self.vc.dump(window='-1',sleep=1)
             self.vc.sleep(1)
             elementToAttributesDictionary = {}
             for element in self.vc.viewsById:  # element is a string (uniqueID)
@@ -282,7 +281,8 @@ class testClass:
                     # Finding some hints
                     hints = ['add', 'next', 'save', 'create']
                     text = (elementToAttributesDictionary[element]["text"]).encode('utf-8').lower()
-                    desc = (elementToAttributesDictionary[element]["content-desc"]).encode('utf-8').lower()
+                    # desc = (elementToAttributesDictionary[element]["content-desc"]).encode('utf-8').lower()
+                    desc = ""
                     for hint in hints:
                         if (hint in text) or (hint in desc):
                             # We have found the right "add note button", therefore click it
@@ -291,12 +291,78 @@ class testClass:
                             self.vc.sleep(1)
                             success = True
                             break
+                if success == True:
+                    break
         # Determining if we had success
         if success == True:
             print "Command OK!"
             return True
         else:
             print "Command NOT EXECUTED"
+            return False
+
+
+    def tickLine(self, lineNum):
+        success = False
+        # Dumping
+        self.vc.dump(window='-1', sleep=1)
+        self.vc.sleep(1)
+        elementToAttributesDictionary = {}
+        for element in self.vc.viewsById:  # element is a string (uniqueID)
+            # Getting the dictionary of attributes for this specific UI element ('attribute name -> value')
+            elementAttributes = self.vc.viewsById[element].map
+            # Adding that to the general dictionary for all UI elements of this state ('UI element -> attributes dictionary')
+            elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
+        # Find a checkable box
+        currentCounter = 0
+        for element in elementToAttributesDictionary:
+            if str(elementToAttributesDictionary[element]["checkable"]).lower() == "true":
+                # Checking if the current checkbox is the onw that we need to click
+                if "priority" in str(elementToAttributesDictionary[element]["resource-id"]).lower():
+                    pass
+                else:
+                    currentCounter = currentCounter + 1
+                    if currentCounter == int(lineNum):
+                        address = self.vc.findViewByIdOrRaise(element)
+                        address.touch()
+                        self.vc.sleep(1)
+                        success = True
+                        break
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False
+
+
+    def assertNumNotes(self, assertingNum):
+        success = False
+        # Dumping
+        self.vc.dump(window='-1', sleep=1)
+        self.vc.sleep(1)
+        elementToAttributesDictionary = {}
+        for element in self.vc.viewsById:  # element is a string (uniqueID)
+            # Getting the dictionary of attributes for this specific UI element ('attribute name -> value')
+            elementAttributes = self.vc.viewsById[element].map
+            # Adding that to the general dictionary for all UI elements of this state ('UI element -> attributes dictionary')
+            elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
+        # Find a checkable box
+        currentCounter = 0
+        for element in elementToAttributesDictionary:
+            if str(elementToAttributesDictionary[element]["checkable"]).lower() == "true":
+                # Checking if the current checkbox is the onw that we need to click
+                if "priority" in str(elementToAttributesDictionary[element]["resource-id"]).lower():
+                    pass
+                else:
+                    currentCounter = currentCounter + 1
+        # Determining if we had success
+        if currentCounter == int(assertingNum):
+            print "Command OK!"
+            return True
+        else:
+            print "ASSERTION FAILED: requested " + str(assertingNum) + " but obtained " + str(currentCounter)
             return False
 
     ### LOGIN - TYPE 3 ###

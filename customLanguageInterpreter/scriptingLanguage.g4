@@ -44,7 +44,7 @@ activitytype    :   ACTTYPE1 | ACTTYPE2 | ACTTYPE3 | ACTTYPE4 | ACTTYPE5 | ACTTY
 
 // Definition of commands for tests related to a specific Activity type
 // To-do screen
-commandlist1    :   ( (command1ver1|command1ver2|command1ver3|command1ver4|command1ver5|command1ver6|command1ver7|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist1    :   ( (command1ver1|command1ver2|command1ver3|command1ver4|command1ver5|command1ver6|command1ver7|command1ver8|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
 command1ver1    :   ADD TASK QUOTEDSTRING;
 command1ver2    :   TICK LINE NUMBER;
 command1ver3    :   TICK ALL;
@@ -52,6 +52,7 @@ command1ver4    :   CLICK LINE NUMBER;
 command1ver5    :   PRESS BACK;
 command1ver6    :   SWIPE UP;
 command1ver7    :   SWIPE DOWN;
+command1ver8    :   ASSERT LINECOUNT EQUALS NUMBER;
 // Ads screen
 commandlist2    :   ( (command2ver1|command2ver2|command2ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
 command2ver1    :   CLICK CLOSE;
@@ -196,6 +197,9 @@ SLEEP       :   S L E E P;
 TESTSLOT1   :   T E S T S L O T [1];
 TESTSLOT2   :   T E S T S L O T [2];
 TESTSLOT3   :   T E S T S L O T [3];
+ASSERT      :   A S S E R T;
+LINECOUNT   :   L I N E C O U N T;
+EQUALS      :   E Q U A L S;
 
 // Application APK categories
 APPCAT1     :   N E W S;

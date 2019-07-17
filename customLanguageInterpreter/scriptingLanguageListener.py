@@ -439,6 +439,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command1ver2.
     def enterCommand1ver2(self, ctx):
+        # Retrieving the input string for the note name
+        lineNum = str(ctx.children[2])
+        # Creafting the command string
+        commandString = "test.tickLine(" + str(lineNum) + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command1ver2.
@@ -488,6 +495,21 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Exit a parse tree produced by scriptingLanguageParser#command1ver7.
     def exitCommand1ver7(self, ctx):
+        pass
+
+    # Enter a parse tree produced by scriptingLanguageParser#command1ver7.
+    def enterCommand1ver8(self, ctx):
+        # Retrieving the input string for the note name
+        assertingNum = str(ctx.children[3])
+        # Creafting the command string
+        commandString = "test.assertNumNotes(" + str(assertingNum) + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#command1ver7.
+    def exitCommand1ver8(self, ctx):
         pass
 
 
