@@ -210,6 +210,57 @@ class testClass:
         self.vc.sleep(secs)
         print "Command OK!"
 
+    def customAssertText(self, inputText):
+        success = False
+        # Dumping
+        self.vc.dump(window='-1', sleep=1)
+        self.vc.sleep(1)
+        elementToAttributesDictionary = {}
+        for element in self.vc.viewsById:  # element is a string (uniqueID)
+            # Getting the dictionary of attributes for this specific UI element ('attribute name -> value')
+            elementAttributes = self.vc.viewsById[element].map
+            # Adding that to the general dictionary for all UI elements of this state ('UI element -> attributes dictionary')
+            elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
+        # Find an the desired text
+        for element in elementToAttributesDictionary:
+            if inputText in str(elementToAttributesDictionary[element]["text"]):
+                success = True
+                break
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED - Could not find text " + str(inputText)
+            return False
+
+    def customClickText(self, inputText):
+        success = False
+        # Dumping
+        self.vc.dump(window='-1', sleep=1)
+        self.vc.sleep(1)
+        elementToAttributesDictionary = {}
+        for element in self.vc.viewsById:  # element is a string (uniqueID)
+            # Getting the dictionary of attributes for this specific UI element ('attribute name -> value')
+            elementAttributes = self.vc.viewsById[element].map
+            # Adding that to the general dictionary for all UI elements of this state ('UI element -> attributes dictionary')
+            elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
+        # Find an the desired text
+        for element in elementToAttributesDictionary:
+            if (inputText == (elementToAttributesDictionary[element]["text"]).encode('utf-8')) or (inputText in (elementToAttributesDictionary[element]["content-desc"]).encode('utf-8').lower()):
+                address = self.vc.findViewByIdOrRaise(element)
+                address.touch()
+                self.vc.sleep(2)
+                success = True
+                break
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED - Could not find text " + str(inputText)
+            return False
+
 
     ### TODO - TYPE 1 ###
     def todoAddNewNote(self, inputNoteTitle):
@@ -468,3 +519,84 @@ class testClass:
         else:
             print "Command NOT EXECUTED - Could not find line index " + str(lineNumber)
             return False
+
+    ### MAP - TYPE 7 ###
+    def swipeUp(self):
+        success = False
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Finding central point
+        xCenter = int(screenWidth/2)
+        yCenter = int(screenHeight/2)
+        # Swiping
+        self.device.drag((xCenter, yCenter), (xCenter, yCenter+200), 500)
+        print "Command OK!"
+        return True
+
+    def swipeDown(self):
+        success = False
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Finding central point
+        xCenter = int(screenWidth/2)
+        yCenter = int(screenHeight/2)
+        # Swiping
+        self.device.drag((xCenter, yCenter), (xCenter, yCenter-200), 500)
+        print "Command OK!"
+        return True
+
+    def swipeLeft(self):
+        success = False
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Finding central point
+        xCenter = int(screenWidth/2)
+        yCenter = int(screenHeight/2)
+        # Swiping
+        self.device.drag((xCenter, yCenter), (xCenter-200, yCenter), 500)
+        print "Command OK!"
+        return True
+
+    def swipeRight(self):
+        success = False
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Finding central point
+        xCenter = int(screenWidth/2)
+        yCenter = int(screenHeight/2)
+        # Swiping
+        self.device.drag((xCenter, yCenter), (xCenter+200, yCenter), 500)
+        print "Command OK!"
+        return True

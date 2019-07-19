@@ -44,7 +44,7 @@ activitytype    :   ACTTYPE1 | ACTTYPE2 | ACTTYPE3 | ACTTYPE4 | ACTTYPE5 | ACTTY
 
 // Definition of commands for tests related to a specific Activity type
 // To-do screen
-commandlist1    :   ( (command1ver1|command1ver2|command1ver3|command1ver4|command1ver5|command1ver6|command1ver7|command1ver8|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist1    :   ( (command1ver1|command1ver2|command1ver3|command1ver4|command1ver5|command1ver6|command1ver7|command1ver8|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command1ver1    :   ADD TASK QUOTEDSTRING;
 command1ver2    :   TICK LINE NUMBER;
 command1ver3    :   TICK ALL;
@@ -54,17 +54,17 @@ command1ver6    :   SWIPE UP;
 command1ver7    :   SWIPE DOWN;
 command1ver8    :   ASSERT LINECOUNT EQUALS NUMBER;
 // Ads screen
-commandlist2    :   ( (command2ver1|command2ver2|command2ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist2    :   ( (command2ver1|command2ver2|command2ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command2ver1    :   CLICK CLOSE;
 command2ver2    :   CLICK ACTTYPE2;
 command2ver3    :   PRESS BACK;
 // Login screen
-commandlist3    :   ( (command3ver1|command3ver2|command3ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist3    :   ( (command3ver1|command3ver2|command3ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command3ver1    :   INPUT NAME QUOTEDSTRING;
 command3ver2    :   INPUT PASSWORD QUOTEDSTRING;
 command3ver3    :   CLICK NEXT;
 // List screen
-commandlist4    :   ( (command4ver1|command4ver2|command4ver3|command4ver4|command4ver5|command4ver6|command4ver7|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist4    :   ( (command4ver1|command4ver2|command4ver3|command4ver4|command4ver5|command4ver6|command4ver7|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command4ver1    :   CLICK LINE NUMBER;
 command4ver2    :   TOGGLE LINE NUMBER;
 command4ver3    :   LONG CLICK LINE NUMBER;
@@ -73,18 +73,18 @@ command4ver5    :   PRESS BACK;
 command4ver6    :   SWIPE UP;
 command4ver7    :   SWIPE DOWN;
 // Portal screen
-commandlist5    :   ( (command5ver1|command5ver2|command5ver3|command5ver4|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist5    :   ( (command5ver1|command5ver2|command5ver3|command5ver4|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command5ver1    :   SWIPE UP;
 command5ver2    :   SWIPE DOWN;
 command5ver3    :   SWIPE LEFT;
 command5ver4    :   SWIPE RIGHT;
 // Browser screen
-commandlist6    :   ( (command6ver1|command6ver2|command6ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist6    :   ( (command6ver1|command6ver2|command6ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command6ver1    :   INPUT URL QUOTEDSTRING;
 command6ver2    :   PRESS ENTER;
 command6ver3    :   PRESS BACK;
 // Map screen
-commandlist7    :   ( (command7ver1|command7ver2|command7ver3|command7ver4|command7ver5|command7ver6|command7ver7|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist7    :   ( (command7ver1|command7ver2|command7ver3|command7ver4|command7ver5|command7ver6|command7ver7|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command7ver1    :   INPUT SEARCH QUOTEDSTRING;
 command7ver2    :   SWIPE UP;
 command7ver3    :   SWIPE DOWN;
@@ -93,7 +93,7 @@ command7ver5    :   SWIPE RIGHT;
 command7ver6    :   CLICK CENTER;
 command7ver7    :   LONG CLICK CENTER;
 // Messages screen
-commandlist8    :   ( (command8ver1|command8ver2|command8ver3|command8ver4|command8ver5|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom) SEMICOL)+;
+commandlist8    :   ( (command8ver1|command8ver2|command8ver3|command8ver4|command8ver5|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command8ver1    :   INPUT MESSAGE QUOTEDSTRING;
 command8ver2    :   PRESS ENTER;
 command8ver3    :   PRESS BACK;
@@ -108,6 +108,8 @@ commandCustomDrag   :   CUSTOM DRAG FROM coordinate TO coordinate DURATION NUMBE
 commandCustomType   :   CUSTOM TYPE QUOTEDSTRING;
 commandCustomBack   :   CUSTOM PRESS DEVICE BACK;
 commandCustomSleep  :   CUSTOM SLEEP NUMBER;
+commandCustomAssertText :   CUSTOM ASSERT TEXT EQUALS QUOTEDSTRING;
+commandCustomClickText  :   CUSTOM CLICK TEXT QUOTEDSTRING;
 coordinate  :   NUMBER NUMBER;
 
 // Command to execute pre-made tests
@@ -200,6 +202,7 @@ TESTSLOT3   :   T E S T S L O T [3];
 ASSERT      :   A S S E R T;
 LINECOUNT   :   L I N E C O U N T;
 EQUALS      :   E Q U A L S;
+TEXT        :   T E X T;
 
 // Application APK categories
 APPCAT1     :   N E W S;
@@ -225,7 +228,7 @@ ACTTYPE8    :   M E S S A G E S;
 
 
 
-QUOTEDSTRING        : '"'[-a-zA-Z0-9!@#$&()`.+,]*'"';
+QUOTEDSTRING        : '"'[-a-zA-Z0-9!@#$&()`.+, ]*'"';
 WHITESPACE          : (' ' | '\t')+ -> skip;
 NEWLINE             : ('\r'? '\n' | '\r')+ -> skip;
 NUMBER              : [0-9]+[.]?[0-9]*;
