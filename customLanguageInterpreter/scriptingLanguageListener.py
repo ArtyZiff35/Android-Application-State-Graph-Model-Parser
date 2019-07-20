@@ -776,6 +776,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command7ver1.
     def enterCommand7ver1(self, ctx):
+        # Retrieving and elaborating the input string
+        inputString = str(ctx.children[2])
+        # Crafting the command string
+        commandString = "test.searchOnMap(" + inputString + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command7ver1.

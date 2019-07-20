@@ -209,6 +209,7 @@ class testClass:
         secs = milliSecs/1000
         self.vc.sleep(secs)
         print "Command OK!"
+        return True
 
     def customAssertText(self, inputText):
         success = False
@@ -521,6 +522,30 @@ class testClass:
             return False
 
     ### MAP - TYPE 7 ###
+    def searchOnMap(self, inputString):
+        # CUSTOM CLICK TEXT "Search here";
+        if not self.customClickText("Search here"):
+            print "Command NOT EXECUTED"
+            return False
+        # CUSTOM SLEEP 1000 ;
+        if not self.customSleep(1000):
+            print "Command NOT EXECUTED"
+            return False
+        # CUSTOM TYPE "San Francisco";
+        if not self.customType(inputString):
+            print "Command NOT EXECUTED"
+            return False
+        # CUSTOM SLEEP 1000 ;
+        if not self.customSleep(1000):
+            print "Command NOT EXECUTED"
+            return False
+        # CUSTOM CLICK TEXT "San Francisco"
+        if not self.customClickText(inputString):
+            print "Command NOT EXECUTED"
+            return False
+        print "Command OK!"
+        return True
+
     def swipeUp(self):
         success = False
         # Getting the screen size via adb shell command
@@ -537,7 +562,7 @@ class testClass:
         xCenter = int(screenWidth/2)
         yCenter = int(screenHeight/2)
         # Swiping
-        self.device.drag((xCenter, yCenter), (xCenter, yCenter+200), 500)
+        self.device.drag((xCenter, yCenter), (xCenter, yCenter+500), 250)
         print "Command OK!"
         return True
 
@@ -557,7 +582,7 @@ class testClass:
         xCenter = int(screenWidth/2)
         yCenter = int(screenHeight/2)
         # Swiping
-        self.device.drag((xCenter, yCenter), (xCenter, yCenter-200), 500)
+        self.device.drag((xCenter, yCenter), (xCenter, yCenter-500), 250)
         print "Command OK!"
         return True
 
@@ -577,7 +602,7 @@ class testClass:
         xCenter = int(screenWidth/2)
         yCenter = int(screenHeight/2)
         # Swiping
-        self.device.drag((xCenter, yCenter), (xCenter-200, yCenter), 500)
+        self.device.drag((xCenter, yCenter), (xCenter-500, yCenter), 250)
         print "Command OK!"
         return True
 
@@ -597,6 +622,6 @@ class testClass:
         xCenter = int(screenWidth/2)
         yCenter = int(screenHeight/2)
         # Swiping
-        self.device.drag((xCenter, yCenter), (xCenter+200, yCenter), 500)
+        self.device.drag((xCenter, yCenter), (xCenter+500, yCenter), 250)
         print "Command OK!"
         return True
