@@ -224,7 +224,7 @@ class testClass:
             elementToAttributesDictionary[elementAttributes['uniqueId']] = elementAttributes
         # Find an the desired text
         for element in elementToAttributesDictionary:
-            if inputText in str(elementToAttributesDictionary[element]["text"]):
+            if inputText in str(elementToAttributesDictionary[element]["text"].encode('utf-8')):
                 success = True
                 break
         # Determining if we had success
@@ -417,6 +417,52 @@ class testClass:
             print "ASSERTION FAILED: requested " + str(assertingNum) + " but obtained " + str(currentCounter)
             return False
 
+
+    ### AD - TYPE 2 ###
+    def closeAd(self):
+        success = False
+        # Trying to find the 'name' field
+        for element in self.startingElementToAttributesDictionary:
+            # Finding out if this is an Edittext first
+            if ("imagebutton" in self.startingElementToAttributesDictionary[element]["class"].lower() and "close" in self.startingElementToAttributesDictionary[element]["content-desc"].lower()) or ("view.view" in str(self.startingElementToAttributesDictionary[element]["class"]).lower() and str(self.startingElementToAttributesDictionary[element]["clickable"]).lower() == "true" and str(self.startingElementToAttributesDictionary[element]["text"]).lower() == "") :
+                # Finding the element and typing
+                address = self.vc.findViewByIdOrRaise(element)
+                address.touch()
+                self.vc.sleep(1)
+                success = True
+                break
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False
+
+
+    def openAd(self):
+        success = False
+        # Trying to find the 'name' field
+        for element in self.startingElementToAttributesDictionary:
+            # Finding out if this is an Edittext first
+            if ("view.view" in str(self.startingElementToAttributesDictionary[element]["class"]).lower() and str(self.startingElementToAttributesDictionary[element]["clickable"]).lower() == "true" and str(self.startingElementToAttributesDictionary[element]["text"]).lower() != "") or (str(self.startingElementToAttributesDictionary[element]["clickable"]).lower() == "true" and "container" not in str(self.startingElementToAttributesDictionary[element]["resource-id"]).lower()):
+                # Finding the element and typing
+                address = self.vc.findViewByIdOrRaise(element)
+                address.touch()
+                self.vc.sleep(1)
+                success = True
+                break
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False
+
+    def backAd(self):
+        self.customPressBack()
+
     ### LOGIN - TYPE 3 ###
     def loginInputName(self, inputName):
         success = False
@@ -492,6 +538,28 @@ class testClass:
             print "Command NOT EXECUTED"
             return False
 
+    def clearFields(self):
+        success = False
+        # Trying to find the 'name' field
+        for element in self.startingElementToAttributesDictionary:
+            # Finding out if this is an Edittext first
+            if "edittext" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
+                # Finding the element and typing
+                address = self.vc.findViewByIdOrRaise(element)
+                (x, y) = address.getXY()
+                self.device.drag((x, y), (x, y), 2000, 1)
+                self.device.press('KEYCODE_DEL')
+                if self.device.isKeyboardShown():
+                    self.device.press('KEYCODE_BACK')
+                success = True
+
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False
 
 
     ### LIST - TYPE 4 ###
@@ -520,6 +588,95 @@ class testClass:
         else:
             print "Command NOT EXECUTED - Could not find line index " + str(lineNumber)
             return False
+
+    ### PORTAL - TYPE 5 ###
+    def swipeLeftPortal(self):
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Finding central point
+        yCenter = int(screenHeight / 2)
+        # Swiping
+        self.device.drag((0, yCenter), (screenWidth, yCenter), 250)
+        print "Command OK!"
+
+    def swipeRightPortal(self):
+        # Getting the screen size via adb shell command
+        output = subprocess.check_output("adb shell dumpsys window | find \"width\"", shell=True)
+        # Parsing the result in order to find the width
+        matchResult = re.search("width=[0-9]+,", output)
+        screenWidth = output[matchResult.start() + 6: matchResult.end() - 1]
+        screenWidth = int(screenWidth)
+        # Parsing the result in order to find the height
+        matchResult = re.search("height=[0-9]+,", output)
+        screenHeight = output[matchResult.start() + 7: matchResult.end() - 1]
+        screenHeight = int(screenHeight)
+        # Finding central point
+        yCenter = int(screenHeight / 2)
+        # Swiping
+        self.device.drag((screenWidth-10, yCenter), (0, yCenter), 250)
+        print "Command OK!"
+
+
+    ### BROWSER - TYPE 8 ###
+    def inputUrl(self, inputString):
+        success = False
+        # Trying to find the Nth line
+        for element in self.startingElementToAttributesDictionary:
+            # Finding the Linear Layout elements
+            if "edittext" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
+                # Now we just have to find the element and click it
+                address = self.vc.findViewByIdOrRaise(element)
+                address.type(inputString)
+                if self.device.isKeyboardShown():
+                    self.device.press('KEYCODE_BACK')
+                self.vc.sleep(1)
+                success = True
+                break
+
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            self.vc.sleep(1)
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False
+
+
+    def pressEnterUrl(self):
+        success = False
+        # Trying to find the Nth line
+        for element in self.startingElementToAttributesDictionary:
+            # Finding the Linear Layout elements
+            if "edittext" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
+                # Now we just have to find the element and click it
+                address = self.vc.findViewByIdOrRaise(element)
+                address.touch()
+                self.device.press('KEYCODE_ENTER')
+                if self.device.isKeyboardShown():
+                    self.device.press('KEYCODE_BACK')
+                self.vc.sleep(1)
+                success = True
+                break
+
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            self.vc.sleep(1)
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False
+
+
 
     ### MAP - TYPE 7 ###
     def searchOnMap(self, inputString):
@@ -625,3 +782,49 @@ class testClass:
         self.device.drag((xCenter, yCenter), (xCenter+500, yCenter), 250)
         print "Command OK!"
         return True
+
+
+    ### MESSAGES - TYPE 8 ###
+    def inputMessage(self, inputString):
+        success = False
+        # Trying to find the 'password' field
+        for element in self.startingElementToAttributesDictionary:
+            # Finding the button elements
+            if "edittext" in str(self.startingElementToAttributesDictionary[element]["class"]).lower():
+                # Checking that this is an edittext where to write our command
+                # Now we just have to find the element and input the text
+                address = self.vc.findViewByIdOrRaise(element)
+                address.type(inputString)
+                if self.device.isKeyboardShown():
+                    self.device.press('KEYCODE_BACK')
+                self.vc.sleep(1)
+                success = True
+                break
+
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False
+
+    def sendMessage(self):
+        success = False
+        # Trying to find the 'password' field
+        for element in self.startingElementToAttributesDictionary:
+            # Finding the button elements
+            if "send" in str(self.startingElementToAttributesDictionary[element]["content-desc"]).lower():
+                # Now we just have to find the element and input the text
+                address = self.vc.findViewByIdOrRaise(element)
+                address.touch()
+                success = True
+                break
+
+        # Determining if we had success
+        if success == True:
+            print "Command OK!"
+            return True
+        else:
+            print "Command NOT EXECUTED"
+            return False

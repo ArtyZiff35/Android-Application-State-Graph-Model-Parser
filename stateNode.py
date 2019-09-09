@@ -4,6 +4,7 @@ import time
 import os
 import subprocess
 from com.dtmilano.android.viewclient import ViewClient, View, ViewClientOptions
+import copy
 
 class stateNode:
 
@@ -17,7 +18,7 @@ class stateNode:
         # Setting the roadmap (list of UI elements) to get here
         self.roadMap = roadMap[:]
         # Setting the 'UI element -> attributes dictionary' dictionary (nested dictionary)
-        self.attributesDictionary = attributesDictionary.copy()
+        self.attributesDictionary = copy.deepcopy(attributesDictionary)
         # Setting the 'UI element -> arriving state' dictionary
         self.outgoingStateDictionary = {}
         # Setting the father state
@@ -32,7 +33,7 @@ class stateNode:
     # This method sets all over again the attributes dictionary and also their queue
     def updateAttributes(self, attributesDictionary = {}):
         # Setting the 'UI element -> attributes dictionary' dictionary (nested dictionary)
-        self.attributesDictionary = attributesDictionary.copy()
+        self.attributesDictionary = copy.deepcopy(attributesDictionary)
         # Building the queue of UI elements to visit (key is UI element)
         del self.visitQueue[:]
         self.visitQueue = []
@@ -56,7 +57,7 @@ class stateNode:
         cls.currentNumStates = cls.currentNumStates + 1
 
     def updateOutgoingStateDictionary(self, dictionary):
-        self.outgoingStateDictionary = dict(dictionary)
+        self.outgoingStateDictionary = copy.deepcopy(dictionary)
 
     def getOutgoingStateDictionary(self):
         return self.outgoingStateDictionary

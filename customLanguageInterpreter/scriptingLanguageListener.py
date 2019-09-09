@@ -524,6 +524,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command2ver1.
     def enterCommand2ver1(self, ctx):
+        # Creafting the command string
+        commandString = "test.closeAd()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command2ver1.
@@ -533,6 +538,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command2ver2.
     def enterCommand2ver2(self, ctx):
+        # Creafting the command string
+        commandString = "test.openAd()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command2ver2.
@@ -542,6 +552,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command2ver3.
     def enterCommand2ver3(self, ctx):
+        # Creafting the command string
+        commandString = "test.backAd()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command2ver3.
@@ -599,6 +614,17 @@ class scriptingLanguageListener(ParseTreeListener):
     def exitCommand3ver3(self, ctx):
         pass
 
+    # Enter a parse tree produced by scriptingLanguageParser#command3ver3.
+    def enterCommand3ver4(self, ctx):
+        # Simply adding the 'click next' command
+        commandString = "test.clearFields()"
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
+        pass
+
+    # Exit a parse tree produced by scriptingLanguageParser#command3ver3.
+    def exitCommand3ver4(self, ctx):
+        pass
 
     # Enter a parse tree produced by scriptingLanguageParser#commandlist4.
     def enterCommandlist4(self, ctx):
@@ -713,6 +739,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command5ver3.
     def enterCommand5ver3(self, ctx):
+        # Crafting the command string
+        commandString = "test.swipeLeftPortal()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command5ver3.
@@ -722,6 +753,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command5ver4.
     def enterCommand5ver4(self, ctx):
+        # Crafting the command string
+        commandString = "test.swipeRightPortal()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command5ver4.
@@ -740,6 +776,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command6ver1.
     def enterCommand6ver1(self, ctx):
+        # Retrieving and elaborating the input string
+        inputString = str(ctx.children[2])
+        # Crafting the command string
+        commandString = "test.inputUrl(" + inputString + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command6ver1.
@@ -749,6 +792,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command6ver2.
     def enterCommand6ver2(self, ctx):
+        # Crafting the command string
+        commandString = "test.pressEnterUrl()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command6ver2.
@@ -875,6 +923,13 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command8ver1.
     def enterCommand8ver1(self, ctx):
+        # Retrieving and elaborating the input string
+        inputString = str(ctx.children[2])
+        # Crafting the command string
+        commandString = "test.inputMessage(" + inputString + ")"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command8ver1.
@@ -884,6 +939,11 @@ class scriptingLanguageListener(ParseTreeListener):
 
     # Enter a parse tree produced by scriptingLanguageParser#command8ver2.
     def enterCommand8ver2(self, ctx):
+        # Crafting the command string
+        commandString = "test.sendMessage()"
+        # Adding the command to the list of the temporary test
+        self.tempTest.appendCommandFunction(commandString)
+        print "Entering command: " + commandString
         pass
 
     # Exit a parse tree produced by scriptingLanguageParser#command8ver2.

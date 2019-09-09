@@ -8,6 +8,7 @@ from com.dtmilano.android.adb import adbclient
 from com.dtmilano.android.common import debugArgsToDict
 from stateNode import stateNode
 import graphPlotter as gp
+import pickle
 
 
 ################################
@@ -183,6 +184,10 @@ while len(statesToExploreQueue) != 0:
     # Drawing graph chart
     gp.drawCurrentlyExploredNodesGraphivz(statesCompletelyExplored)
     numAddedNewStates = 0
+    # Saving the Graph Explored up to this moment
+    pickleFile = open('C:/Users/artur/PycharmProjects/AndroidTestingPy27/outputFiles/resultingGraphObject.obj', 'w')
+    pickle.dump(statesCompletelyExplored, pickleFile)
+    pickleFile.close()
     # Pop a state
     currentState = statesToExploreQueue.pop(0)
     # Move from root to that state and update the dump to allow for button pressure
@@ -204,7 +209,8 @@ while len(statesToExploreQueue) != 0:
         try:
             # Inner loop: keep going as long as we have UI elements still to explore
             for UiElement in UIelementGenerator(currentState):
-
+                if str(currentState.attributesDictionary[UiElement]['clickable']) == 'false':
+                    continue
                 # Getting info about this UI element
                 currentDictionary = currentState.getAttributesDictionary()
                 # if currentDictionary[UiElement]['focusable'] == 'false':

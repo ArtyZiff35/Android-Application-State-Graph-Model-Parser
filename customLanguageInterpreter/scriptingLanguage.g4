@@ -59,10 +59,11 @@ command2ver1    :   CLICK CLOSE;
 command2ver2    :   CLICK ACTTYPE2;
 command2ver3    :   PRESS BACK;
 // Login screen
-commandlist3    :   ( (command3ver1|command3ver2|command3ver3|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
+commandlist3    :   ( (command3ver1|command3ver2|command3ver3|command3ver4|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command3ver1    :   INPUT NAME QUOTEDSTRING;
 command3ver2    :   INPUT PASSWORD QUOTEDSTRING;
 command3ver3    :   CLICK NEXT;
+command3ver4    :   CLEAR FIELDS;
 // List screen
 commandlist4    :   ( (command4ver1|command4ver2|command4ver3|command4ver4|command4ver5|command4ver6|command4ver7|commandCustomClick|commandCustomLongClick|commandCustomDrag|commandCustomType|commandCustomBack|commandCustomSleep|testCustom|commandCustomAssertText|commandCustomClickText) SEMICOL)+;
 command4ver1    :   CLICK LINE NUMBER;
@@ -203,6 +204,8 @@ ASSERT      :   A S S E R T;
 LINECOUNT   :   L I N E C O U N T;
 EQUALS      :   E Q U A L S;
 TEXT        :   T E X T;
+CLEAR       :   C L E A R;
+FIELDS      :   F I E L D S;
 
 // Application APK categories
 APPCAT1     :   N E W S;

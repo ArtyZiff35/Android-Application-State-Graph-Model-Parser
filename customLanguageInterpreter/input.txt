@@ -1,19 +1,6 @@
 When VIDEO app:
 
 
-IN PORTAL check for SAME state:
-    CUSTOM SLEEP 5000;
-    EXECUTE TESTSLOT1;
-    EXECUTE TESTSLOT2;
-    EXECUTE TESTSLOT3;
+IN MESSAGES check for DIFFERENT state MESSAGES:
+    INPUT MESSAGE "Test string";
 
-
-
-
-In LOGIN check for SAME state:
-    Input PaSsWorD "pass";
-    Input namE "arturo";
-    INPUT NAME "@";
-    Input Password "word";
-    input name "gmail.com";
-    Click next;
